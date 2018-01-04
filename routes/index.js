@@ -6,13 +6,15 @@ module.exports = function (models, app, sequelize) {
   const Leagues = models['Leagues'];
   const Seasons = models['Seasons'];
   const Rounds = models['Rounds'];
+  const Goals = models['Goals'];
+  const Persons = models['Persons'];
 
-  const mapRawGames = rawGames => {
+  const mapRawGames = (rawGames) => {
     return rawGames.map(g => {
       const team1 = teams.find(t => t.id === g.team1Id);
       const team2 = teams.find(t => t.id === g.team2Id);
       const winnerId = g.winner === 1 ? g.team1Id : (g.winner === 2 ? g.team2Id : null);
-      return {
+      let game = {
         id: g.id,
         key: g.key,
         roundId: g.roundId,
@@ -30,11 +32,114 @@ module.exports = function (models, app, sequelize) {
         nextGameId: g.nextGameId,
         prevGameId: g.prevGameId
       };
+
+      if (g.goals) {
+        game.goals = g.goals;
+      }
+
+      return game;
+    });
+  };
+
+  const mapGoalsToGames = (games, goals) => {
+    return games.map(g => {
+      let game = {
+        id: g.id,
+        key: g.key,
+        roundId: g.roundId,
+        team1Id: g.team1Id,
+        team2Id: g.team2Id,
+        team1: g.team1,
+        team2: g.team2,
+        playAt: g.playAt,
+        postponed: g.postponed,
+        score1: g.score1,
+        score2: g.score2,
+        winner: g.winner,
+        winnerId: g.winnerId,
+        winner90: g.winner90,
+        nextGameId: g.nextGameId,
+        prevGameId: g.prevGameId
+      };
+      game['goals'] = goals.filter(gl => gl.gameId === g.id);
+      return game;
+    });
+  };
+
+  const mapPersonsToGoals = (goals) => {
+    let personIds = [];
+    goals.forEach(gl => {
+      if (personIds.indexOf(gl.personId) === -1) {
+        personIds.push(gl.personId);
+      }
+    });
+    return Persons.findAll({ where: { id: { $in: personIds}}}).then(people => {
+      return goals.map(gl => {
+        let goal = {
+          id: gl.id,
+          personId: gl.personId,
+          gameId: gl.gameId,
+          teamId: gl.teamId,
+          minute: gl.minute,
+          offset: gl.offset,
+          score1: gl.score1,
+          score2: gl.score2,
+          penalty: gl.penalty,
+          owngoal: gl.owngoal,
+          player: people.find(p => p.id === gl.personId)
+        };
+        return goal;
+      });
     });
   };
 
   Teams.findAll().then(t => {
     teams = t;
+  });
+
+  app.get('/players', (req, res) => {
+    return Persons.findAll().then(p => res.json(p));
+  });
+
+  app.get('/games', (req, res) => {
+    return Promise.all([
+      Games.findAll(),
+      Goals.findAll()
+    ]).then(result => {
+      return res.json(mapGoalsToGames(mapRawGames(result[0]), result[1]));
+    });
+  });
+
+  app.get('/goals', (req, res) => {
+    return Goals.findAll()
+      .then(mapPersonsToGoals)
+      .then(goals => res.json(goals));
+  });
+
+  app.get('/goals-by-player/:name', (req, res) => {
+    return Persons.findOne({
+      where: {
+        $or: [
+          { id: req.params.name },
+          { name: { $like: `%${req.params.name}%`}},
+          { key: { $like: `%${req.params.name}%`}}
+        ]
+      }
+    }).then(p => {
+      if (!p) {
+        return res.json({});
+      }
+
+      return Goals.findAll({ where: { personId: p.id }})
+        .then(mapPersonsToGoals)
+        .then(goals => res.json(goals));
+    });
+  });
+
+  app.get('/goals-by-game/:id', (req, res) => {
+    return Goals.findAll({ where: { gameId: req.params.id }})
+        .then(mapPersonsToGoals)
+        .then(goals => res.json(goals));
   });
 
   app.get('/games-by-team/:id', (req, res) => {
@@ -83,8 +188,13 @@ module.exports = function (models, app, sequelize) {
       WHERE s.key = '${convertedKey}' and (t1.id = '${teamId}' or t2.id = '${teamId}')`, { type: sequelize.QueryTypes.SELECT}
     )
     .then(function(gameIds) {
-      return Games.findAll({ where: { id: {$in: gameIds.map(g => g.id) }}}).then(games => {
-        return res.json(mapRawGames(games));
+      const ids = gameIds.map(g => g.id);
+      return Promise.all([
+          Games.findAll({ where: { id: {$in: ids}}}),
+          Goals.findAll({ where: { gameId: {$in: ids}}}).then(goals => mapPersonsToGoals(goals))
+        ]
+      ).then(result => {
+        return res.json(mapGoalsToGames(mapRawGames(result[0]), result[1]));
       });
     });
   });

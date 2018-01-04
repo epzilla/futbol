@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const finale = require('finale-rest');
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -17,21 +16,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const server = http.createServer(app);
 
-// Initialize finale
-finale.initialize({
-  app: app,
-  sequelize: database
-});
-
 const models = {};
 fs.readdirSync(__dirname + '/models').forEach(m => {
   let name = m.slice(0, -3);
   models[name] = database.import(__dirname + `/models/${m}`);
-  finale.resource({
-    model: models[name],
-    endpoints: [`/${name.toLowerCase()}`, `/${name.toLowerCase()}/:id`],
-    pagination: false
-  });
 });
 
 require('./routes')(models, app, database);
