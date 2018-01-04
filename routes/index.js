@@ -97,11 +97,11 @@ module.exports = function (models, app, sequelize) {
     teams = t;
   });
 
-  app.get('/players', (req, res) => {
+  app.get('/api/players', (req, res) => {
     return Persons.findAll().then(p => res.json(p));
   });
 
-  app.get('/games', (req, res) => {
+  app.get('/api/games', (req, res) => {
     return Promise.all([
       Games.findAll(),
       Goals.findAll()
@@ -110,13 +110,13 @@ module.exports = function (models, app, sequelize) {
     });
   });
 
-  app.get('/goals', (req, res) => {
+  app.get('/api/goals', (req, res) => {
     return Goals.findAll()
       .then(mapPersonsToGoals)
       .then(goals => res.json(goals));
   });
 
-  app.get('/goals-by-player/:name', (req, res) => {
+  app.get('/api/goals-by-player/:name', (req, res) => {
     return Persons.findOne({
       where: {
         $or: [
@@ -136,13 +136,13 @@ module.exports = function (models, app, sequelize) {
     });
   });
 
-  app.get('/goals-by-game/:id', (req, res) => {
+  app.get('/api/goals-by-game/:id', (req, res) => {
     return Goals.findAll({ where: { gameId: req.params.id }})
         .then(mapPersonsToGoals)
         .then(goals => res.json(goals));
   });
 
-  app.get('/games-by-team/:id', (req, res) => {
+  app.get('/api/games-by-team/:id', (req, res) => {
     const id = req.params.id;
     return Games.findAll({
       where: {
@@ -156,7 +156,7 @@ module.exports = function (models, app, sequelize) {
     });
   });
 
-  app.get('/games-by-league-season/:league/:season', (req, res) => {
+  app.get('/api/games-by-league-season/:league/:season', (req, res) => {
     const leagueId = req.params.league;
     const seasonKey = req.params.season;
     let seasonNum = parseInt(seasonKey);
@@ -172,7 +172,7 @@ module.exports = function (models, app, sequelize) {
     });
   });
 
-  app.get('/games-by-team-season/:team/:season', (req, res) => {
+  app.get('/api/games-by-team-season/:team/:season', (req, res) => {
     const teamId = req.params.team;
     const seasonKey = req.params.season;
     let seasonNum = parseInt(seasonKey);
@@ -199,7 +199,7 @@ module.exports = function (models, app, sequelize) {
     });
   });
 
-  app.get('/games-by-opp/:team/:opp', (req, res) => {
+  app.get('/api/games-by-opp/:team/:opp', (req, res) => {
     const team = req.params.team;
     const opp = req.params.opp;
     return Games.findAll({ where: {
@@ -212,4 +212,5 @@ module.exports = function (models, app, sequelize) {
     });
   });
 
+  app.get('/*', (req, res) => res.render('index'));
 };

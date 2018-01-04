@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const path = require('path');
 
 // Define your models
 const database = new Sequelize(null, null, null, {
@@ -14,6 +15,8 @@ const database = new Sequelize(null, null, null, {
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.set('views', path.join(__dirname, 'public/views'));
+app.set('view engine', 'pug');
 const server = http.createServer(app);
 
 const models = {};
