@@ -20,6 +20,24 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true,
       defaultValue: undefined
+    },
+    primaryColor: {
+      field: 'primary_color',
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: undefined
+    },
+    secondaryColor: {
+      field: 'secondary_color',
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: undefined
+    },
+    tertiaryColor: {
+      field: 'tertiary_color',
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: undefined
     }
   }, {
     tableName: 'teams',

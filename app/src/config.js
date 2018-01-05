@@ -2,6 +2,7 @@
 export default {
   siteName: 'ToffeeDB',
   team: 'Everton',
+  code: 'EVE',
   city: 'Liverpool',
   teamSlogan: 'COYB',
   footerImg: '/assets/everton.svg',

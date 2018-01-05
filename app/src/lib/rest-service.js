@@ -1,3 +1,4 @@
+import * as qwest from 'qwest';
 const base = 'http://localhost:3000/api/';
 
 export default {

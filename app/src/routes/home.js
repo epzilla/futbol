@@ -12,7 +12,7 @@ export default class Home extends Component {
   render() {
     return (
       <div class="main home">
-        <h1>Hellooooo</h1>
+        <StatsTable showRecord={true} {...this.props} />
       </div>
     );
   }

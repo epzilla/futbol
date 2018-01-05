@@ -97,6 +97,16 @@ module.exports = function (models, app, sequelize) {
     teams = t;
   });
 
+  app.get('/api/teams', (req, res) => {
+    return res.json(teams);
+  });
+
+  app.get('/api/team/:name', (req, res) => {
+    const key = req.params.name.toLowerCase();
+    const team = teams.find(t => t.title.toLowerCase() === key || t.code.toLowerCase() === key);
+    return res.json(team || {});
+  });
+
   app.get('/api/players', (req, res) => {
     return Persons.findAll().then(p => res.json(p));
   });

@@ -8,13 +8,20 @@ const path = require('path');
 // Define your models
 const database = new Sequelize(null, null, null, {
   dialect: 'sqlite',
-  storage: './sport.db'
+  storage: './data/sport.db'
 });
 
 // Initialize server
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Authorization, Access-Control-Allow-Origin, Access-Control-Allow-Methods, Cache-Control')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', true);
+  next();
+});
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'pug');
 const server = http.createServer(app);

@@ -1,6 +1,6 @@
 export const gameIsInFuture = (game) => {
   let now = new Date();
-  let gameDate = new Date(game.date);
+  let gameDate = new Date(game.playAt);
   now.setHours(0);
   now.setMinutes(0);
   now.setSeconds(0);

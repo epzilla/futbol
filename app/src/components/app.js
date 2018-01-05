@@ -24,9 +24,8 @@ export default class App extends Component {
 	constructor(props) {
     super(props);
     this.ls = LocalStorageService;
-    this.state = { menu: false, games: [], kb: false };
+    this.state = { menu: false, team: null, games: [], teams: [], kb: false, currentYearGames: [] };
     this.config = Config;
-
     let conf = this.ls.get('config');
     this.config = Config || conf;
     if (Config && JSON.stringify(conf) !== JSON.stringify(Config)) {
@@ -73,6 +72,18 @@ export default class App extends Component {
         document.body.style.setProperty(`--${key}`, this.config.themeProperties[key]);
       });
     }
+
+    this.currentYear = new Date().getFullYear();
+    Rest.get('teams').then(teams => this.setState({ teams }));
+    Rest.get(`team/${this.config.team}`).then(team => {
+    	this.setState({ team });
+    }).then(() => {
+    	if (this.state.team) {
+    		Rest.get(`games-by-team-season/${this.state.team.id}/${this.currentYear}`).then(currentYearGames => {
+    			this.setState({ currentYearGames });
+    		})
+    	}
+    });
   }
 
 	render() {
@@ -84,7 +95,7 @@ export default class App extends Component {
 					showKeyboardShortcuts={() => this.showKeyboardShortcuts()}
 				/>
 				<Router onChange={this.handleRoute}>
-					<Home path="/" />
+					<Home path="/" games={this.state.currentYearGames} team={this.state.team} teams={this.state.teams} />
 				</Router>
 				<Footer config={this.config} />
 				<NotSoSecretCode config={this.config} menu={this.state.menu} />
