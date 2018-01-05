@@ -5,7 +5,7 @@ export default {
   code: 'EVE',
   city: 'Liverpool',
   teamSlogan: 'COYB',
-  footerImg: '/assets/everton.svg',
+  footerImg: '/assets/badges-vector/EVE.svg',
   loginPlaceholderEmail: 'arthur.gustav.malzahn.iii@auburn.edu',
   loginPlaceholderPW: 'W@ff!3 H0u$e',
   signupPlaceholderName: 'Chris Davis',

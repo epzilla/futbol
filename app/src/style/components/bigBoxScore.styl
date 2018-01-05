@@ -19,19 +19,38 @@
 
   .team-block {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     flex-grow: 1;
+    height: 500px;
     width: 50%;
     padding: 0 2rem;
-
-    &:first-of-type {
-      justify-content: flex-end;
-    }
+    position: relative;
 
     * {
       color: white;
       text-transform: uppercase;
+    }
+
+    .overlay,
+    .team-bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+
+    .overlay {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
     }
   }
 
@@ -41,13 +60,14 @@
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: calc(50px + 2rem) calc(50px + 2rem) 0 0;
+    border-width: 500px calc(50px + 2rem) 0 0;
     position: absolute;
     left: calc(50% - 2.5rem);
+    z-index: 1;
   }
 
   .separator-right {
-    border-width: 0 0 calc(50px + 2rem) calc(50px + 2rem);
+    border-width: 0 0 500px calc(50px + 2rem);
   }
 
   .team-badge {
@@ -57,18 +77,5 @@
     background-repeat: no-repeat;
     background-position: center;
     margin: 1rem;
-  }
-
-  .score-line {
-    position: absolute;
-    z-index: 1;
-
-    &.score-line-1 {
-      left: calc(50% - 2rem);
-    }
-
-    &.score-line-2 {
-      left: calc(50% + 1rem);
-    }
   }
 }

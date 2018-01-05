@@ -21,14 +21,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: undefined
     },
-    primaryColor: {
-      field: 'primary_color',
+    bgColor: {
+      field: 'bg_color',
       type: DataTypes.STRING,
       allowNull: true,
       defaultValue: undefined
     },
-    secondaryColor: {
-      field: 'secondary_color',
+    textColor: {
+      field: 'text_color',
       type: DataTypes.STRING,
       allowNull: true,
       defaultValue: undefined
