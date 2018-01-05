@@ -4,7 +4,19 @@
   justify-content: top;
   border: 1px solid #CCC;
 
+  .stats-table-row-wrapper {
+    flex-direction: column;
+    justify-content: top;
+    border: 1px solid #CCC;
+    border-top: none;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
   .stats-table-row {
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,16 +24,14 @@
     padding: 0 1rem;
     font-size: 1.25rem;
     position: relative;
-    border: 1px solid #CCC;
-    border-top: none;
 
-    &:last-child {
-      border-bottom: none;
+    &:hover {
+      background-color: #F1F1F1;
     }
 
     .date-span {
       position: absolute;
-      right: 1rem;
+      left: 1rem;
     }
 
     .team-block {
