@@ -64,7 +64,7 @@ export default class App extends Component {
       });
     }
 
-    this.currentYear = new Date().getFullYear() - 7;
+    this.currentYear = new Date().getFullYear();
     Rest.get('teams').then(teams => this.setState({ teams }));
     Rest.get(`team/${this.config.team}`).then(team => {
     	this.setState({ team });
