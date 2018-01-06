@@ -5,15 +5,6 @@ import Config from '../config';
 import Header from './header';
 import Home from '../routes/home';
 import Footer from './footer';
-// import Stats from '../routes/stats';
-// import Yearly from '../routes/yearly';
-// import Depth from '../routes/depth';
-// import Recruiting from '../routes/recruiting';
-// import Admin from '../routes/admin';
-// import Login from '../routes/login';
-// import Logout from '../routes/logout';
-// import Signup from '../routes/signup';
-// import Profile from '../routes/profile';
 import NotSoSecretCode from './notSoSecretCode';
 import GlobalKeyboardShortcuts from './globalKeyboardShortcuts';
 import KeyboardShortcutHelp from './keyboardShortcutHelp';
@@ -73,7 +64,7 @@ export default class App extends Component {
       });
     }
 
-    this.currentYear = new Date().getFullYear();
+    this.currentYear = new Date().getFullYear() - 1;
     Rest.get('teams').then(teams => this.setState({ teams }));
     Rest.get(`team/${this.config.team}`).then(team => {
     	this.setState({ team });
