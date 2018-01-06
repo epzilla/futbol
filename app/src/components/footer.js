@@ -1,8 +1,8 @@
-const Footer = ({ config }) => {
+const Footer = ({ slogan, img }) => {
   return (
     <div class="footer">
-      <img src={ config.footerImg } />
-      <h3 class="footer-text">{ config.teamSlogan }</h3>
+      <img src={ img } />
+      <h3 class="footer-text">{ slogan }</h3>
     </div>
   );
 };

@@ -15,7 +15,7 @@ export default class App extends Component {
 	constructor(props) {
     super(props);
     this.ls = LocalStorageService;
-    this.state = { menu: false, team: null, games: [], teams: [], kb: false, currentYearGames: [] };
+    this.state = { menu: false, team: { code: '' }, games: [], teams: [], kb: false, currentYearGames: [] };
     this.config = Config;
     let conf = this.ls.get('config');
     this.config = Config || conf;
@@ -64,7 +64,7 @@ export default class App extends Component {
       });
     }
 
-    this.currentYear = new Date().getFullYear() - 1;
+    this.currentYear = new Date().getFullYear() - 7;
     Rest.get('teams').then(teams => this.setState({ teams }));
     Rest.get(`team/${this.config.team}`).then(team => {
     	this.setState({ team });
@@ -88,7 +88,7 @@ export default class App extends Component {
 				<Router onChange={this.handleRoute}>
 					<Home path="/" games={this.state.currentYearGames} team={this.state.team} teams={this.state.teams} />
 				</Router>
-				<Footer config={this.config} />
+				<Footer slogan={this.config.teamSlogan} img={`assets/badges/${this.state.team.code}.svg`} />
 				<NotSoSecretCode config={this.config} menu={this.state.menu} />
         <GlobalKeyboardShortcuts
           toggleKeyboardShortcuts={this.toggleKeyboardShortcuts}

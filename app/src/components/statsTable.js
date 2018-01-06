@@ -61,7 +61,7 @@ export default class StatsTable extends Component {
           <div class={`stats-table-row ${rowClass}`} onClick={() => this.expandGame(game.id)}>
             <div class="team-block">
               <span class="team-name">{ game.team1.title }</span>
-              <span class="team-badge" style={`background-image: url(/assets/badges/${ game.team1.code }.png)`}></span>
+              <span class="team-badge" style={`background-image: url(/assets/badges/${ game.team1.bgColor ? game.team1.code : 'default'}.svg)`}></span>
             </div>
             { played ?
                 <span class="score-line">
@@ -77,7 +77,7 @@ export default class StatsTable extends Component {
                 </span>
             }
             <div class="team-block">
-              <span class="team-badge" style={`background-image: url(/assets/badges/${ game.team2.code }.png)`}></span>
+              <span class="team-badge" style={`background-image: url(/assets/badges/${ game.team2.bgColor ? game.team2.code : 'default'}.svg)`}></span>
               <span class="team-name">{ game.team2.title }</span>
             </div>
             <span class="date-span">{ game.playAt }</span>

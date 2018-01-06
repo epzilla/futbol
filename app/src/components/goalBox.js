@@ -8,6 +8,7 @@ const GoalBox = ({ goals, team }) => {
               <span class="ball">⚽️</span>
               <span class="scorer">{ g.player.name }</span>
               { g.owngoal === 't' ? <span class="og">&nbsp;(OG)&nbsp;</span> : null }
+              { g.penalty === 't' ? <span class="pen">&nbsp;(PEN)&nbsp;</span> : null }
               <span class="minute">&nbsp;&ndash;&nbsp;{ g.minute }'</span>
             </li>
           )

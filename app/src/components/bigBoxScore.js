@@ -20,13 +20,26 @@ export default class BigBoxScore extends Component {
 
   render() {
     const game = this.props.game;
+
+    if (!game.team1.bgColor) {
+      game.team1.code = 'default';
+      game.team1.bgColor = '#EFEFEF';
+      game.team1.textColor = '#555';
+    }
+
+    if (!game.team2.bgColor) {
+      game.team2.code = 'default';
+      game.team2.bgColor = '#EFEFEF';
+      game.team2.textColor = '#555';
+    }
+
     const played = this.props.played;
     return (
       <div class="big-box-score">
         <span class="date-span">{ game.playAt }</span>
         <div class="team-block">
           <div class="team-bg" style={`background-color: ${ game.team1.bgColor }`}></div>
-          <div class="team-img" style={`background-image: url(/assets/badges-vector/${ game.team1.code }.svg)`}></div>
+          <div class="team-img" style={`background-image: url(/assets/badges/${ game.team1.code }.svg)`}></div>
           <div class="overlay">
             <span class={`team-name ${game.team1.title.length > 15 ? 'smaller' : ''}`}>{ game.team1.title }</span>
             { played ? <span class="score-line score-line-1">{ game.score1 }</span> : null }
@@ -37,7 +50,7 @@ export default class BigBoxScore extends Component {
         <div class="separator-right" style={`border-color: transparent transparent ${ game.team2.bgColor } transparent;`}></div>
         <div class="team-block">
           <div class="team-bg" style={`background-color: ${ game.team2.bgColor }`}></div>
-          <div class="team-img" style={`background-image: url(/assets/badges-vector/${ game.team2.code }.svg)`}></div>          <div class="overlay">
+          <div class="team-img" style={`background-image: url(/assets/badges/${ game.team2.code }.svg)`}></div>          <div class="overlay">
             <span class={`team-name ${game.team2.title.length > 15 ? 'smaller' : ''}`}>{ game.team2.title }</span>
             { played ? <span class="score-line score-line-2">{ game.score2 }</span> : null }
             { game.score1 > 0 ? <GoalBox goals={game.goals} team={game.team2Id} /> : null }
