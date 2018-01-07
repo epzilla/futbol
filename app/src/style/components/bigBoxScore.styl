@@ -39,6 +39,14 @@
       font-size: 3rem;
       font-weight: 700;
       text-shadow: 2px 2px  rgba(0, 0, 0, 0.7);
+
+      @media screen and (max-width: 1000px) {
+        font-size: 2.5rem;
+      }
+
+      @media screen and (max-width: 800px) {
+        font-size: 2rem;
+      }
     }
 
     .team-name {
@@ -49,6 +57,14 @@
 
       &.smaller {
         font-size: 2rem;
+      }
+
+      @media screen and (max-width: 1000px) {
+        margin-top: 33%;
+      }
+
+      @media screen and (max-width: 800px) {
+        margin-top: 40%;
       }
     }
 
@@ -106,5 +122,44 @@
     background-repeat: no-repeat;
     background-position: center;
     margin: 1rem;
+  }
+
+  @media screen and (orientation: portrait) {
+    flex-direction: column;
+
+    .team-block {
+      height: calc(50vh - 65px);
+      width: 100%;
+
+      .team-name {
+        text-align:
+      }
+
+      .team-img {
+        opacity: 0.2;
+        width: 50%;
+      }
+
+      .overlay {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 2rem;
+        z-index: 2;
+
+        .team-name {
+          margin-top: 0;
+        }
+
+        .score-line {
+          box-shadow: none;
+          margin-left: auto;
+        }
+      }
+    }
+
+    .separator-right,
+    .separator-left {
+      display: none;
+    }
   }
 }
