@@ -1,4 +1,4 @@
-import { gameIsInFuture } from '../lib/helpers';
+import { gamePlayed } from '../lib/helpers';
 import { h, Component } from 'preact';
 import BigBoxScore from './BigBoxScore';
 
@@ -34,7 +34,7 @@ export default class StatsTable extends Component {
     const rows = games.map((game, i) => {
       let resText;
       let rowClass;
-      const played = !gameIsInFuture(game);
+      const played = gamePlayed(game);
       if (played) {
         const result = this.getResult(game, team.id);
         if (result === 'W') {

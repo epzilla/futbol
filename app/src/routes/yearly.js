@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import Rest from '../lib/rest-service';
 import LocalStorageService from '../lib/local-storage-service';
-import { gameIsInFuture } from '../lib/helpers';
+import { gamePlayed } from '../lib/helpers';
 
 export default class Yearly extends Component {
   constructor(props) {
@@ -154,7 +154,7 @@ export default class Yearly extends Component {
         let date = `${dateParts[1]}/${dateParts[2]}`;
 
         if (this.props.user && year <= this.currentYear) {
-          if (!gameIsInFuture(game)) {
+          if (gamePlayed(game)) {
             let didAttend = this.props.user.games.indexOf(game._id) !== -1;
             attendCol = (
               <td>
