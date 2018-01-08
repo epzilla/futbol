@@ -83,7 +83,7 @@ export default class Depth extends Component {
         <CSSTransitionGroup
           transitionName="slide-out"
           transitionAppear={true}
-          trasnsitionLeave={true}
+            transitionLeave={true}
           transitionEnter={true}
           transitionEnterTimeout={0}
           transitionLeaveTimeout={0}>

@@ -177,7 +177,7 @@ const KeyboardShortcutHelp = ({ show, dismiss }) => {
     <CSSTransitionGroup
       transitionName="modal-pop-in"
       transitionAppear={false}
-      trasnsitionLeave={true}
+        transitionLeave={true}
       transitionEnter={true}
       transitionEnterTimeout={200}
       transitionLeaveTimeout={200}

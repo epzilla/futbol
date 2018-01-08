@@ -5,6 +5,7 @@ import Config from '../config';
 import Header from './header';
 import Home from '../routes/home';
 import Footer from './footer';
+import DebugConsole from './debugConsole';
 import NotSoSecretCode from './notSoSecretCode';
 import GlobalKeyboardShortcuts from './globalKeyboardShortcuts';
 import KeyboardShortcutHelp from './keyboardShortcutHelp';
@@ -15,7 +16,15 @@ export default class App extends Component {
 	constructor(props) {
     super(props);
     this.ls = LocalStorageService;
-    this.state = { menu: false, team: { code: '' }, games: [], teams: [], kb: false, currentYearGames: [] };
+    this.state = {
+      menu: false,
+      team: { code: '' },
+      games: [],
+      teams: [],
+      kb: false,
+      debugConsole: true,
+      currentYearGames: []
+    };
     this.config = Config;
     let conf = this.ls.get('config');
     this.config = Config || conf;
@@ -56,6 +65,14 @@ export default class App extends Component {
     }
   };
 
+  hideDebugConsole = () => {
+    this.setState({ debugConsole: false });
+  };
+
+  showDebugConsole = () => {
+    this.setState({ debugConsole: true });
+  };
+
 	componentDidMount() {
     // Set CSS Custom Properties
     if (this.config && this.config.themeProperties) {
@@ -89,6 +106,14 @@ export default class App extends Component {
 					<Home path="/" games={this.state.currentYearGames} team={this.state.team} teams={this.state.teams} />
 				</Router>
 				<Footer slogan={this.config.teamSlogan} img={`assets/badges/${this.state.team.code}.svg`} />
+        {
+          (this.config.devMode && !this.state.debugConsole) ?
+          <div class="debug-mode-btn-container" onClick={() => this.showDebugConsole()}>
+              <i class="fa fa-bug"></i>
+          </div>
+          : null
+        }
+        <DebugConsole show={this.state.debugConsole} close={this.hideDebugConsole} />
 				<NotSoSecretCode config={this.config} menu={this.state.menu} />
         <GlobalKeyboardShortcuts
           toggleKeyboardShortcuts={this.toggleKeyboardShortcuts}

@@ -1,6 +1,7 @@
 // Everton
 export default {
   siteName: 'ToffeeDB',
+  devMode: true,
   team: 'Everton',
   code: 'EVE',
   city: 'Liverpool',

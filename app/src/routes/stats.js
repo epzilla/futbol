@@ -505,7 +505,7 @@ export default class Stats extends Component {
           class="full-width"
           transitionName="slide-up-half"
           transitionAppear={true}
-          trasnsitionLeave={true}
+            transitionLeave={true}
           transitionEnter={true}
           transitionEnterTimeout={0}
           transitionLeaveTimeout={0}>
@@ -515,7 +515,7 @@ export default class Stats extends Component {
           class="full-width"
           transitionName="modal-pop-in"
           transitionAppear={true}
-          trasnsitionLeave={true}
+            transitionLeave={true}
           transitionEnter={true}
           transitionEnterTimeout={150}
           transitionLeaveTimeout={150}>

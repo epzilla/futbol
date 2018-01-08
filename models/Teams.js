@@ -15,6 +15,18 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: undefined
     },
+    shortName: {
+      field: 'short_name',
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: undefined
+    },
+    shorterName: {
+      field: 'shorter_name',
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: undefined
+    },
     code: {
       field: 'code',
       type: DataTypes.STRING,
