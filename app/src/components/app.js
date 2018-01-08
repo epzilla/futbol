@@ -16,16 +16,14 @@ export default class App extends Component {
 	constructor(props) {
     super(props);
     this.ls = LocalStorageService;
+    this.config = Config;
     this.state = {
       menu: false,
-      team: { code: '' },
-      games: [],
+      team: { code: this.config.code, title: this.config.team },
       teams: [],
       kb: false,
-      debugConsole: true,
-      currentYearGames: []
+      debugConsole: true
     };
-    this.config = Config;
     let conf = this.ls.get('config');
     this.config = Config || conf;
     if (Config && JSON.stringify(conf) !== JSON.stringify(Config)) {
@@ -81,16 +79,9 @@ export default class App extends Component {
       });
     }
 
-    this.currentYear = new Date().getFullYear();
     Rest.get('teams').then(teams => this.setState({ teams }));
     Rest.get(`team/${this.config.team}`).then(team => {
     	this.setState({ team });
-    }).then(() => {
-    	if (this.state.team) {
-    		Rest.get(`games-by-team-season/${this.state.team.id}/${this.currentYear}`).then(currentYearGames => {
-    			this.setState({ currentYearGames });
-    		})
-    	}
     });
   }
 
@@ -103,7 +94,7 @@ export default class App extends Component {
 					showKeyboardShortcuts={() => this.showKeyboardShortcuts()}
 				/>
 				<Router onChange={this.handleRoute}>
-					<Home path="/" games={this.state.currentYearGames} team={this.state.team} teams={this.state.teams} />
+					<Home path="/" team={this.state.team} teams={this.state.teams} config={this.config} />
 				</Router>
 				<Footer slogan={this.config.teamSlogan} img={`assets/badges/${this.state.team.code}.svg`} />
         {
@@ -113,7 +104,7 @@ export default class App extends Component {
           </div>
           : null
         }
-        <DebugConsole show={this.state.debugConsole} close={this.hideDebugConsole} />
+        { this.config.devMode ? <DebugConsole show={this.state.debugConsole} close={this.hideDebugConsole} /> : null }
 				<NotSoSecretCode config={this.config} menu={this.state.menu} />
         <GlobalKeyboardShortcuts
           toggleKeyboardShortcuts={this.toggleKeyboardShortcuts}
@@ -121,7 +112,7 @@ export default class App extends Component {
         />
         <KeyboardShortcutHelp config={this.config} show={this.state.kb} dismiss={() => this.hideKeyboardShortcuts()} />
         <audio preload id="highlight-sound" src={this.config.highlightSound} />
-        <audio preload id="secret-sound" src="/assets/secret.wav" />
+        <audio preload id="secret-sound" src="/assets/sounds/secret.wav" />
 			</div>
 		);
 	}

@@ -6,6 +6,10 @@ import format from 'date-fns/format';
 
 let logs = [];
 
+export const getSeason = (year) => {
+  return `${year - 1}-${year.toString().slice(-2)}`;
+}
+
 export const gamePlayed = (game) => {
   const now = new Date();
   const gameDate = parse(game.playAt);

@@ -24,8 +24,13 @@ export default class StatsTable extends Component {
     this.setState({ expandedGame });
   };
 
+  getSeason = () => {
+    let lastYear = this.props.year - 1;
+    return `${lastYear}-${this.props.year.toString().slice(-2)}`;
+  };
+
   render() {
-    const { games, currentYear, showRecord, team, teams } = this.props;
+    const { games, year, showRecord, team, teams } = this.props;
     let wins = 0;
     let losses = 0;
     let draws = 0;
@@ -91,14 +96,14 @@ export default class StatsTable extends Component {
               <span class="team-name team-name-smallest">{ game.team2.code }</span>
             </div>
           </div>
-          { this.state.expandedGame === game.id ? <BigBoxScore game={game} played={played} /> : null }
+          { this.state.expandedGame && this.state.expandedGame === game.id ? <BigBoxScore game={game} played={played} /> : null }
         </div>
       );
     });
 
     return (
       <div class="full-width">
-        { showRecord ? <h2 class="record align-center">Record: { record }</h2> : null }
+        { showRecord ? <h3 class="record align-center">{ this.getSeason() } Record: { record }</h3> : null }
         <div class="stats-table faux-table">
           { rows }
         </div>

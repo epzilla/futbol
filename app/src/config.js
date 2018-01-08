@@ -1,7 +1,7 @@
 // Everton
 export default {
   siteName: 'ToffeeDB',
-  devMode: true,
+  devMode: false,
   team: 'Everton',
   code: 'EVE',
   city: 'Liverpool',
@@ -11,7 +11,7 @@ export default {
   signupPlaceholderName: 'Chris Davis',
   signupPlaceholderEmail: 'got1sec@109yds.org',
   signupPlaceholderPW: 'K!ck $ix',
-  firstSeason: 1892,
+  firstSeason: 2010,
   themeProperties: {
     primary: '#00369c',
     secondary: 'white',
@@ -35,7 +35,7 @@ export default {
       '/assets/images/tdpics/5.jpg'
     ]
   },
-  highlightSound: '/assets/images/tdau.wav',
+  highlightSound: '/assets/sounds/tdau.wav',
   championships: {
   }
 };
