@@ -30,8 +30,6 @@
     color: white;
     cursor: pointer;
     line-height: 0;
-    transform: rotate(180deg);
-    font-size: 2rem;
     z-index: 3;
 
     &.dark {
@@ -85,6 +83,10 @@
 
       &.smaller {
         font-size: 2rem;
+      }
+
+      @media screen and (max-width: 750px) {
+        text-align: left;
       }
     }
 
@@ -197,6 +199,11 @@
 
     &.team-name-smaller {
       display: inline;
+
+      &.small-text {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
     }
 
     @media screen and (min-width: 750px) {

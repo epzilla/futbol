@@ -39,7 +39,9 @@ export default class BigBoxScore extends Component {
 
     return (
       <div class="big-box-score">
-        <button class={`back-button ${team1LightBg ? 'dark' : ''}`} onClick={() => this.props.hide()}>➜</button>
+        <button class={`back-button ${team1LightBg ? 'dark' : ''}`} onClick={() => this.props.hide()}>
+          <i class="fa fa-chevron-left"></i>
+        </button>
         <span class="date-span">{ game.playAt }</span>
         <div class="team-block">
           <div class="team-bg" style={`background-color: ${ game.team1.bgColor }`}></div>
@@ -47,7 +49,7 @@ export default class BigBoxScore extends Component {
           <div class="overlay">
             <span
               style={`color: ${ team1LightBg ? game.team1.textColor : 'white' }`}
-              class={`team-name team-name-full ${game.team1.title.length > 15 ? 'smaller' : ''} ${ team1LightBg ? 'light' : ''}`}
+              class={`team-name team-name-full ${ team1LightBg ? 'light' : ''}`}
             >{ game.team1.title }</span>
             <span
               style={`color: ${ team1LightBg ? game.team1.textColor : 'white' }`}
@@ -55,7 +57,7 @@ export default class BigBoxScore extends Component {
             >{ game.team1.shortName }</span>
             <span
               style={`color: ${ team1LightBg ? game.team1.textColor : 'white' }`}
-              class={`team-name team-name-smaller ${ team1LightBg ? 'light' : ''}`}
+              class={`team-name team-name-smaller ${game.team1.title.length > 8 ? 'small-text' : ''} ${ team1LightBg ? 'light' : ''}`}
             >{ game.team1.shorterName }</span>
             <span
               style={`color: ${ team1LightBg ? game.team1.textColor : 'white' }`}
@@ -78,7 +80,7 @@ export default class BigBoxScore extends Component {
           <div class="overlay">
             <span
               style={`color: ${ team2LightBg ? game.team2.textColor : 'white' }`}
-              class={`team-name team-name-full ${game.team2.title.length > 15 ? 'smaller' : ''} ${ team2LightBg ? 'light' : ''}`}
+              class={`team-name team-name-full ${ team2LightBg ? 'light' : ''}`}
             >{ game.team2.title }</span>
             <span
               style={`color: ${ team2LightBg ? game.team2.textColor : 'white' }`}
@@ -86,7 +88,7 @@ export default class BigBoxScore extends Component {
             >{ game.team2.shortName }</span>
             <span
               style={`color: ${ team2LightBg ? game.team2.textColor : 'white' }`}
-              class={`team-name team-name-smaller ${ team2LightBg ? 'light' : ''}`}
+              class={`team-name team-name-smaller ${game.team2.title.length > 8 ? 'small-text' : ''} ${ team2LightBg ? 'light' : ''}`}
             >{ game.team2.shorterName }</span>
             <span
               style={`color: ${ team2LightBg ? game.team2.textColor : 'white' }`}
