@@ -40,7 +40,7 @@ export default class BigBoxScore extends Component {
     return (
       <div class="big-box-score">
         <button class={`back-button ${team1LightBg ? 'dark' : ''}`} onClick={() => this.props.hide()}>
-          <i class="fa fa-chevron-left"></i>
+          <i class="fa fa-times"></i>
         </button>
         <span class="date-span">{ game.playAt }</span>
         <div class="team-block">
