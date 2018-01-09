@@ -97,7 +97,7 @@ export default class BigBoxScore extends Component {
             { played ?
               <span
                 style={`color: ${ team2LightBg ? game.team2.textColor : 'white' }`}
-                class="score-line score-line-1">{ game.score1 }
+                class="score-line score-line-1">{ game.score2 }
               </span>
               : null }
             { game.score2 > 0 ? <GoalBox goals={game.goals} team={game.team2Id} textColor={team2LightBg ? game.team2.textColor : null} /> : null }
