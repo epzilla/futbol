@@ -1,3 +1,5 @@
+@import 'animations';
+
 .big-box-score {
   display: flex;
   justify-content: center;
@@ -273,28 +275,9 @@
 }
 
 .scale-in-enter.big-box-score {
-  transform: scale(0);
-}
-
-.scale-in-enter.scale-in-enter-active.big-box-score {
-  transform: scale(1);
-  transition: transform 200ms ease-in;
-}
-
-.scale-in-appear.big-box-score {
-  transform: scale(0);
-}
-
-.scale-in-appear.scale-in-appear-active.big-box-score {
-  transform: scale(1);
-  transition: transform 200ms ease-in;
+  animation: flip-in 300ms linear;
 }
 
 .scale-in-leave.big-box-score {
-  transform: scale(1);
-}
-
-.scale-in-leave.scale-in-leave-active.big-box-score {
-  transform: scale(0);
-  transition: transform 200ms ease-in;
+  animation: flip-out 300ms linear;
 }
